@@ -5,8 +5,14 @@
 
     <data>
         <variable
+            name="bookDetailFragment"
+            type="com.example.bookclubapp.ui.fragment.BookDetailFragment" />
+        <variable
             name="kitapNesnesi"
             type="com.example.bookclubapp.data.entity.VolumeInfo" />
+        <variable
+            name="gorselNesnesi"
+            type="com.example.bookclubapp.data.entity.ImageLinks" />
 
     </data>
 
@@ -19,8 +25,8 @@
             android:id="@+id/imageView6"
             android:layout_width="44dp"
             android:layout_height="68dp"
-            android:layout_marginTop="319dp"
-            android:layout_marginEnd="20dp"
+            android:layout_marginTop="264dp"
+            android:layout_marginEnd="12dp"
             android:src="@drawable/baseline_add_comment_24"
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
             app:layout_constraintTop_toBottomOf="@+id/imageViewKitapDetayresim" />
@@ -29,42 +35,43 @@
             android:id="@+id/imageViewKitapDetayresim"
             android:layout_width="169dp"
             android:layout_height="216dp"
-            android:layout_marginTop="75dp"
+            android:layout_marginTop="52dp"
+            android:src="@{gorselNesnesi.thumbnail}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/avatars" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/textViewKitapdetayisim"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="62dp"
-            android:text="TextView"
+            android:layout_width="332dp"
+            android:layout_height="33dp"
+            android:layout_marginTop="56dp"
+            android:text="@{kitapNesnesi.title}"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.125"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewKitapDetayresim" />
 
         <TextView
             android:id="@+id/textViewkitapdetayyazaradi"
-            android:layout_width="52dp"
-            android:layout_height="18dp"
-            android:layout_marginStart="44dp"
-            android:layout_marginTop="35dp"
-            android:text="text"
+            android:layout_width="322dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="48dp"
+            android:layout_marginTop="40dp"
+            app:bindAuthors="@{kitapNesnesi.authors}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewKitapdetayisim" />
 
         <TextView
             android:id="@+id/textViewkitapdetayDesc"
-            android:layout_width="270dp"
-            android:layout_height="73dp"
+            android:layout_width="340dp"
+            android:layout_height="64dp"
             android:layout_marginStart="44dp"
             android:layout_marginTop="36dp"
-            android:text="TextView"
+            app:bindDescription="@{kitapNesnesi.description}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewkitapdetayyazaradi" />
 
@@ -72,8 +79,8 @@
             android:id="@+id/imageView3"
             android:layout_width="42dp"
             android:layout_height="64dp"
-            android:layout_marginStart="121dp"
-            android:layout_marginTop="319dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="264dp"
             android:src="@drawable/baseline_menu_book_24"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewKitapDetayresim" />
@@ -82,8 +89,8 @@
             android:id="@+id/imageView4"
             android:layout_width="59dp"
             android:layout_height="75dp"
-            android:layout_marginTop="312dp"
-            android:layout_marginEnd="96dp"
+            android:layout_marginTop="256dp"
+            android:layout_marginEnd="104dp"
             android:src="@drawable/baseline_list_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageViewKitapDetayresim" />
