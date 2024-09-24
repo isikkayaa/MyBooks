@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.bookclubapp.ui.viewmodel.FavouritesViewModel" />
+        <variable
+            name="adapter"
+            type="com.example.bookclubapp.ui.adapter.FavouritesAdapter" />
+        <variable
+            name="fragment"
+            type="com.example.bookclubapp.ui.fragment.FavouritesFragment" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragment.FavouritesFragment">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFav"
+            android:layout_width="408dp"
+            android:layout_height="675dp"
+            android:layout_marginTop="55dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav"
+    app:startDestination="@id/loginFragment">
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.bookclubapp.ui.fragment.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/signupaGecis"
+            app:destination="@id/signUpFragment" />
+        <action
+            android:id="@+id/loginhomeGecis"
+            app:destination="@id/homePageFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.example.bookclubapp.ui.fragment.SignUpFragment"
+        android:label="fragment_sign_up"
+        tools:layout="@layout/fragment_sign_up" >
+        <action
+            android:id="@+id/signtologinGecis"
+            app:destination="@id/loginFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homePageFragment3"
+        android:name="com.example.bookclubapp.ui.fragment.HomePageFragment"
+        android:label="fragment_home_page"
+        tools:layout="@layout/fragment_home_page" >
+        <action
+            android:id="@+id/action_homePageFragment3_to_profileFragment2"
+            app:destination="@id/profileFragment2" />
+        <action
+            android:id="@+id/detayGecis"
+            app:destination="@id/bookDetailFragment" />
+        <action
+            android:id="@+id/hometofav"
+            app:destination="@id/favouritesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment2"
+        android:name="com.example.bookclubapp.ui.fragment.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment2_to_homePageFragment3"
+            app:destination="@id/homePageFragment3" />
+    </fragment>
+    <fragment
+        android:id="@+id/bookDetailFragment"
+        android:name="com.example.bookclubapp.ui.fragment.BookDetailFragment"
+        android:label="BookDetailFragment" >
+        <action
+            android:id="@+id/action_bookDetailFragment_to_homePageFragment3"
+            app:destination="@id/homePageFragment3" />
+        <argument
+            android:name="kitap"
+            app:argType="com.example.bookclubapp.data.entity.VolumeInfo" />
+        <argument
+            android:name="gorsel"
+            app:argType="com.example.bookclubapp.data.entity.ImageLinks" />
+    </fragment>
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.example.bookclubapp.ui.fragment.FavouritesFragment"
+        android:label="fragment_favourites"
+        tools:layout="@layout/fragment_favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_homePageFragment3"
+            app:destination="@id/homePageFragment3" />
+    </fragment>
+</navigation>
