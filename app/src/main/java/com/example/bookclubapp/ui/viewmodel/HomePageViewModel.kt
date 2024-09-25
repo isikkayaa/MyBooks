@@ -116,7 +116,31 @@ class HomePageViewModel @Inject constructor(
     }
 
     // Firestore'dan favori kitapları alma fonksiyonu
+    fun fetchFavoriteBooks() {
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+        val db = FirebaseFirestore.getInstance()
 
+        db.collection("users").document(userId).collection("favorites")
+            .get()
+            .addOnSuccessListener { result ->
+                val books = result.map { document ->
+                    FavBooks(
+                        title = document.getString("title")!!,
+                        // authors'ı List<String> olarak almak için get("authors") kullanın
+                        authors = document.get("authors") as? List<String>, // Burayı düzelttik
+                        description = document.getString("description"),
+                        imageLinks = ImageLinks(
+                            thumbnail = document.getString("thumbnail"),
+                            smallThumbnail = null
+                        )
+                    )
+                }
+                _favBooks.postValue(books)
+            }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error getting favorite books", e)
+            }
+    }
 
 
     // Firestore'dan favori kitap kaldırma fonksiyonu
