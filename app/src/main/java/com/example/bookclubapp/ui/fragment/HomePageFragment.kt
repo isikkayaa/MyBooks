@@ -54,6 +54,7 @@ class HomePageFragment : Fragment() {
 
         setupRecyclerView()
 
+
         binding.adapter = homePageAdapter
 
         observeViewModel()

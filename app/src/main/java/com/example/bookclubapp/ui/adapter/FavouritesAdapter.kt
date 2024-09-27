@@ -32,6 +32,8 @@ class FavouritesAdapter (var mContext: Context, var favKitaplarListesi : List<Fa
 
         t.favKitapNesnesi = favKitap
 
+        holder.tasarim.favKitapNesnesi = favKitap
+
         holder.tasarim.textViewfavKitapAd.text = favKitap.title
 
         val thumbnailUrl = favKitap.imageLinks?.thumbnail
@@ -62,8 +64,9 @@ class FavouritesAdapter (var mContext: Context, var favKitaplarListesi : List<Fa
     fun updateFavorites(newFavorites: List<FavBooks>?) {
         if (newFavorites != null) {
             favKitaplarListesi = newFavorites
+            notifyDataSetChanged()
         }
-        notifyDataSetChanged()
+
     }
 
 }

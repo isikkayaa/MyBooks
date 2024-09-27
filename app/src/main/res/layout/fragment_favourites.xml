@@ -24,9 +24,9 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFav"
-            android:layout_width="408dp"
-            android:layout_height="675dp"
-            android:layout_marginTop="55dp"
+            android:layout_width="417dp"
+            android:layout_height="745dp"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

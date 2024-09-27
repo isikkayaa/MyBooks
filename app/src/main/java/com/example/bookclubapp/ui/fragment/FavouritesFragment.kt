@@ -26,7 +26,7 @@ class FavouritesFragment : Fragment() {
     private lateinit var favouritesViewModel: FavouritesViewModel
     private lateinit var favouritesAdapter: FavouritesAdapter
     private lateinit var booksDao: BooksDao
-    private lateinit var homePageViewModel: HomePageViewModel
+   // private lateinit var homePageViewModel: HomePageViewModel
     private lateinit var firebaseAuth: FirebaseAuth
 
 
@@ -47,26 +47,29 @@ class FavouritesFragment : Fragment() {
         binding.viewModel= favouritesViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
-        homePageViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
+       // homePageViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
 
         favouritesViewModel = ViewModelProvider(this).get(FavouritesViewModel::class.java)
         favouritesAdapter = FavouritesAdapter(requireContext(),emptyList(),favouritesViewModel)
 
-        binding.rvFav.adapter = favouritesAdapter
+        binding.adapter = favouritesAdapter
         setupRecyclerView()
 
         observeViewModel()
 
-
+/*
         // Favori kitapları gözlemleme
         favouritesViewModel.favKitaplarListesi.observe(viewLifecycleOwner) { it ->
             if (it != null) {
                 favouritesAdapter.updateFavorites(it)
+                // Favori kitapları Firestore'dan çek
+                favouritesViewModel.fetchFavoriteBooks()
             }
         }
 
-        // Favori kitapları Firestore'dan çek
-        homePageViewModel.fetchFavoriteBooks()
+
+
+ */
 
 
 
@@ -93,17 +96,16 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        favouritesViewModel.favKitaplarListesi.observe(viewLifecycleOwner) {it ->
-            it?.let {
+        favouritesViewModel.favKitaplarListesi.observe(viewLifecycleOwner) { favKitaplar ->
+            favKitaplar?.let {
                 if (it.isNotEmpty()) {
                     favouritesAdapter.updateFavorites(it)
-                }else {
-                    Log.d("FavouritesFragment","listebos")
-                } ?: run {
-                    Log.d("Fav", "Kitaplar listesi null")
+                    favouritesViewModel.fetchFavoriteBooks()
+                    favouritesViewModel.favKitaplariYukle()
+                } else {
+                    Log.d("FavouritesFragment", "Favori kitaplar listesi boş")
                 }
             }
-
         }
     }
 

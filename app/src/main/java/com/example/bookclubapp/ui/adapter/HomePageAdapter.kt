@@ -101,6 +101,7 @@ class HomePageAdapter(
                         t.imageViewkalpborder.setImageResource(R.drawable.baseline_favorite_24)
                         Snackbar.make(it, "${kitap.title} favorilere eklendi!", Snackbar.LENGTH_SHORT).show()
                         updateFavorites(favKitaplar)
+
                     } else {
                         Snackbar.make(it, "Ekleme işlemi başarısız!", Snackbar.LENGTH_SHORT).show()
                     }
