@@ -43,7 +43,7 @@ android {
         jvmTarget = "17"
         kotlinOptions {
             jvmTarget = "17"
-            languageVersion = "1.7" // veya `languageVersion` satırını tamamen kaldırabilirsiniz
+            languageVersion = "1.7"
         }
 
 
@@ -51,8 +51,7 @@ android {
 
 
     kapt {
-        correctErrorTypes = true // Kapt'ın bazı türleri yanlış yorumlamasını engellemek için
-    }
+        correctErrorTypes = true
 
 }
 
@@ -97,4 +96,4 @@ dependencies {
 
 
 
-}
+}}

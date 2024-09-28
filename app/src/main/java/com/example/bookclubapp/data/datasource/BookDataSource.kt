@@ -17,7 +17,7 @@ class BookDataSource(var bdao: BooksDao) {
 
     suspend fun favKitaplariYukle(): FavBooksResponse =
         withContext(Dispatchers.IO) {
-            return@withContext bdao.favKitaplariYukle() // Bu, response'dan 'FavBooksResponse' dönecek
+            return@withContext bdao.favKitaplariYukle()
         }
 
 

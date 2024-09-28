@@ -58,7 +58,6 @@ class FavouritesFragment : Fragment() {
         observeViewModel()
 
 
-        // Favori kitapları gözlemleme
         favouritesViewModel.favKitaplarListesi.observe(viewLifecycleOwner) { it ->
             if (it != null) {
                 favouritesAdapter.updateFavorites(it)

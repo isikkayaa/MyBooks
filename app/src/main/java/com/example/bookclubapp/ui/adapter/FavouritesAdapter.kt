@@ -62,8 +62,9 @@ class FavouritesAdapter (var mContext: Context, var favKitaplarListesi : List<Fa
     fun updateFavorites(newFavorites: List<FavBooks>?) {
         if (newFavorites != null) {
             favKitaplarListesi = newFavorites
+            notifyDataSetChanged()
+
         }
-        notifyDataSetChanged()
     }
 
 }
