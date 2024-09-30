@@ -54,6 +54,7 @@ class HomePageFragment : Fragment() {
 
         setupRecyclerView()
 
+
         binding.adapter = homePageAdapter
 
         observeViewModel()
@@ -94,7 +95,6 @@ class HomePageFragment : Fragment() {
     }
 
     fun ara(aramaKelimesi: String) {
-        // Bu fonksiyon kullanılmıyorsa silebilirsiniz.
     }
 
     private fun observeViewModel() {

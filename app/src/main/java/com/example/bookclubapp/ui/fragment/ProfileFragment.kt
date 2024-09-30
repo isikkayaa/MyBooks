@@ -35,7 +35,6 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
 
         binding  = DataBindingUtil.inflate(inflater, R.layout.fragment_profile,container,false)
         viewModel = ViewModelProvider(this).get(ProfileViewModel::class.java)
@@ -134,32 +133,6 @@ class ProfileFragment : Fragment() {
     }
 
 
-/*
-    fun showLogoutConfirmationDialog() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle("Logout")
-            .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Yes") { dialogInterface, _ ->
-                logout()
-            }
-            .setNegativeButton("No") { dialogInterface, _ ->
-                dialogInterface.dismiss()
-            }
-            .show()
-    }
-
-    private fun logout() {
-        firebaseAuth.signOut()
-        clearUserSession()
-        findNavController().navigate(R.id.action_profileFragment_to_girisFragment)
-    }
-
-    private fun clearUserSession() {
-        val sharedPreferences = requireActivity().getSharedPreferences("PomodoroSettings", Context.MODE_PRIVATE)
-        sharedPreferences.edit().clear().apply()
-    }
-
- */
 
     companion object {
         private const val PERMISSION_REQUEST_CODE = 1001

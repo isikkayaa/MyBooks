@@ -5,7 +5,7 @@ import java.io.Serializable
 data class VolumeInfo(
 val title: String,
 val authors: List<String>?,
-val description: String? = "Description not available", // Varsayılan değer
+val description: String? = "Description not available",
 val imageLinks: ImageLinks?,
 ) : Serializable
 

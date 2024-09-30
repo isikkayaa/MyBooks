@@ -52,12 +52,7 @@ class ProfileViewModel  @Inject constructor(@ApplicationContext private val cont
 
     }
 
-  /*  fun onLogoutButtonClick() {
 
-
-    }
-
-   */
 
 
 }

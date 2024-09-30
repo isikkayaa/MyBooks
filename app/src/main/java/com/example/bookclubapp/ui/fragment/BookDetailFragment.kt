@@ -43,8 +43,8 @@ class BookDetailFragment : Fragment() {
             context?.let {
                 Glide.with(it)
                     .load(thumbnailUrl)
-                    .placeholder(R.drawable.baseline_menu_book_24) // Yükleme sırasında gösterilecek bir placeholder
-                    .error(R.drawable.baseline_list_24) // Görsel yüklenemediğinde gösterilecek bir görsel
+                    .placeholder(R.drawable.baseline_menu_book_24)
+                    .error(R.drawable.baseline_list_24)
                     .into(binding.imageViewKitapDetayresim)
             }
         } else {

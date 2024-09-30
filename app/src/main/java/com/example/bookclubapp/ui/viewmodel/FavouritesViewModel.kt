@@ -25,10 +25,9 @@ class FavouritesViewModel @Inject constructor(var brepo:BooksRepository,  @Appli
     fun favKitaplariYukle() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
-                val favBooksList = brepo.favKitaplariYukle() // Bu List<FavBooks> dönecek
+                val favBooksList = brepo.favKitaplariYukle()
                 favKitaplarListesi.value = favBooksList
             } catch (e: Exception) {
-                // Hata yönetimi
             }
         }
     }

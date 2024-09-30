@@ -16,25 +16,24 @@ class UsersViewModel @Inject constructor(private val usersDao: UsersDao) : ViewM
 
     private val firebaseAuth = FirebaseAuth.getInstance()
 
-    // Kullanıcı giriş durumunu gözlemlemek için LiveData
     private val _loginResult = MutableLiveData<Boolean>()
     val loginResult: LiveData<Boolean> get() = _loginResult
 
-    // Kullanıcı kaydetme işlemi
+
     fun registerUser(userId: String, username: String, email: String, callback: (Boolean) -> Unit) {
         usersDao.createUser(userId, username, email) { success ->
             callback(success)
         }
     }
 
-    // E-posta ve parola ile giriş işlemi
+
     fun signInWithEmail(email: String, password: String) {
         firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener { task ->
             _loginResult.postValue(task.isSuccessful)
         }
     }
 
-    // Google hesabı ile giriş işlemi
+
     fun signInWithGoogle(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
@@ -42,7 +41,7 @@ class UsersViewModel @Inject constructor(private val usersDao: UsersDao) : ViewM
         }
     }
 
-    // Firebase oturumu kapatma işlemi
+
     fun signOut() {
         firebaseAuth.signOut()
         _loginResult.postValue(false)

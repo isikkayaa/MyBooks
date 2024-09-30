@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class BooksViewModel @Inject constructor(
-    private val googleBooksApi: GoogleBooksApi // Hilt ile API'yi enjekte edin
+    private val googleBooksApi: GoogleBooksApi
 ) : ViewModel() {
 
     private val _books = MutableLiveData<List<BookItem>>()
@@ -26,10 +26,8 @@ class BooksViewModel @Inject constructor(
             try {
                 val response = googleBooksApi.searchBooks(query, apiKey)
 
-                // Gelen yanıtı _books LiveData'sına ekleyin
                 _books.postValue(response.items ?: emptyList())
 
-                // Logları kontrol edin
                 Log.d("BooksViewModel", "Fetched books: ${response.items?.size}")
             } catch (e: Exception) {
                 Log.e("BooksViewModel", "Error fetching books", e)

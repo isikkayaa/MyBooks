@@ -37,48 +37,45 @@ class HomePageViewModel @Inject constructor(
     private val _favBooks = MutableLiveData<List<FavBooks>>()
     val favBooks: LiveData<List<FavBooks>> get() = _favBooks
 
-    // Google Books API arayüzünü ApiUtils'den alıyoruz
     private val googleBooksApi: GoogleBooksApi = ApiUtils.getGoogleBooksApi()
 
     init {
         homepageKitaplariYukle()
     }
 
-    fun homepageKitaplariYukle(){
+    fun homepageKitaplariYukle() {
         CoroutineScope(Dispatchers.Main).launch {
             try {
                 _kitaplarListesi.value = listOf(brepo.homepageKitapYukle())
                 brepo.homepageKitapYukle()
-            }catch (e:Exception){
+            } catch (e: Exception) {
 
             }
         }
     }
 
-    // Google Books API'den kitap arama fonksiyonu
+
     fun searchBooks(query: String, apiKey: String) {
         viewModelScope.launch {
             try {
-                // API'den yanıt alınır
+
                 val response = googleBooksApi.searchBooks(query, apiKey)
 
-                // Gelen yanıtı loglayın
+
                 Log.d("HomePageViewModel", "API Yanıtı: $response")
 
-                // Gelen veriyi volumeInfo'dan kitap bilgilerine dönüştürün
-                val books = response.items?.mapNotNull { bookItem -> // items alanı doğru
-                    // bookItem.volumeInfo null değilse volumeInfo'yu işleyin
+
+                val books = response.items?.mapNotNull { bookItem ->
                     bookItem.volumeInfo?.let {
                         VolumeInfo(
-                            title = it.title ?: "Bilinmeyen Başlık", // volumeInfo.title kullanın
-                            authors = it.authors ?: emptyList(), // volumeInfo.authors kullanın
-                            description = it.description ?: "Açıklama yok", // volumeInfo.description
-                            imageLinks = it.imageLinks // volumeInfo.imageLinks
+                            title = it.title ?: "Bilinmeyen Başlık",
+                            authors = it.authors ?: emptyList(),
+                            description = it.description ?: "Açıklama yok",
+                            imageLinks = it.imageLinks
                         )
                     }
                 }
 
-                // Kitap listesi güncelleniyor
                 _kitaplarListesi.postValue(books ?: emptyList())
 
                 Log.d("HomePageViewModel", "Kitap listesi post edildi: ${books?.size} kitap")
@@ -91,9 +88,6 @@ class HomePageViewModel @Inject constructor(
 
 
 
-
-
-    // Firestore'a favori kitap ekleme fonksiyonu
     fun addBookToFavorites(book: VolumeInfo, onComplete: (Boolean) -> Unit) {
         val db = FirebaseFirestore.getInstance()
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -115,7 +109,7 @@ class HomePageViewModel @Inject constructor(
             }
     }
 
-    // Firestore'dan favori kitapları alma fonksiyonu
+
     fun fetchFavoriteBooks() {
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
         val db = FirebaseFirestore.getInstance()
@@ -126,7 +120,8 @@ class HomePageViewModel @Inject constructor(
                 val books = result.map { document ->
                     FavBooks(
                         title = document.getString("title")!!,
-                        authors = document.getString("authors")?.split(", "),
+
+                        authors = document.get("authors") as? List<String>,
                         description = document.getString("description"),
                         imageLinks = ImageLinks(
                             thumbnail = document.getString("thumbnail"),
@@ -141,7 +136,7 @@ class HomePageViewModel @Inject constructor(
             }
     }
 
-    // Firestore'dan favori kitap kaldırma fonksiyonu
+
     fun removeFromFavorites(title: String, onComplete: (Boolean) -> Unit) {
         val db = FirebaseFirestore.getInstance()
         val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
@@ -155,8 +150,9 @@ class HomePageViewModel @Inject constructor(
                 onComplete(false)
             }
     }
-}
 
-private fun <T> MutableLiveData<T>.postValue(booksResponse: BooksResponse) {
 
+    private fun <T> MutableLiveData<T>.postValue(booksResponse: BooksResponse) {
+
+    }
 }
