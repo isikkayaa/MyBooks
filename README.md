@@ -16,13 +16,20 @@ Technologies used;
 * DataBinding
 
 
-![bir](https://github.com/user-attachments/assets/82040447-cc4b-44e0-9d06-8e3865752ca8)
+## 📸 Screenshots
 
+|     <img src="screenshots/entry.png" alt="Screen1" width="300"/>      |     <img src="screenshots/1.2.png" alt="Screen2" width="300"/>     |      <img src="screenshots/bir.png" alt="Screen3" width="300"/>      |
+|:----------------------------------------------------------------------:|:----------------------------------------------------------------------:|:----------------------------------------------------------------------:|
+|                            **WELCOME PAGE**                            |                           **REGISTER PAGE**                            |                             **LOGIN PAGE**                             |
 
- ![1 2](https://github.com/user-attachments/assets/c060dfbd-2c29-42b2-ac1e-90e2a27f8a51)
+|    <img src="screenshots/favs.png" alt="Screen4" width="300"/>  |             <img src="screenshots/nav_drawer.png" alt="Screen5" width="300"/>     |     <img src="screenshots/readpage.png" alt="Screen6" width="300"/>     |
+|:----------------------------------------------------------------------:|:----------------------------------------------------------------------:|:----------------------------------------------------------------------:|
+|                        **FAVOURITES PAGE**                        |                             **NAVIGATION DRAWER**                              |                           **READ PAGE**                           |
 
+|       <img src="screenshots/readingpage.png" alt="Screen7" width="300"/>  |   
+|:----------------------------------------------------------------------:   |
+|                             **READING PAGE**                              | 
 
-![iki](https://github.com/user-attachments/assets/9c10f79d-a12b-4088-9370-208afd667fc4) ![uc](https://github.com/user-attachments/assets/1c1b70c6-98de-4a93-b8e1-f331ae48274b)
 
 
 
