@@ -10,16 +10,6 @@ class ApiUtils {
         val BASE_URL = "https://api.nytimes.com/svc/books/v3/lists/current/"
 
 
-
-
-
-
-        /*fun getBooksDao() : BooksDao {
-            return RetrofitClient.getClient(BASE_URL).create(BooksDao::class.java)
-        }
-
-        */
-
         fun getGoogleBooksApi(): GoogleBooksApi {
             return RetrofitClient.getClient(Constants.GOOGLE_BOOKS_BASE_URL).create(GoogleBooksApi::class.java)
         }

@@ -74,12 +74,12 @@ class ProfileFragment : Fragment() {
         binding.homePageViewModel = homePageViewModel
 
         adapter = BooksAdapter(requireContext(), emptyList(), emptyList(), emptyList())
-        binding.recyclerViewCurrently.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL)   // LinearLayoutManager ayarı
-        binding.recyclerViewCurrently.adapter = adapter  // Adapter'ı RecyclerView'a bağlama
+        binding.recyclerViewCurrently.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL)
+        binding.recyclerViewCurrently.adapter = adapter
 
         commentsAdapter = CommentsAdapter(requireContext(), emptyList(), emptyList(), emptyList())
-        binding.recyclerViewComments.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)   // LinearLayoutManager ayarı
-        binding.recyclerViewComments.adapter = commentsAdapter  // Adapter'ı RecyclerView'a bağlama
+        binding.recyclerViewComments.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)
+        binding.recyclerViewComments.adapter = commentsAdapter
         firebaseAuth = FirebaseAuth.getInstance()
 
         viewModel.loadProfileData()
@@ -92,7 +92,7 @@ class ProfileFragment : Fragment() {
                 val imageUri = result.data?.data
                 imageUri?.let {
                     viewModel.profileImageUri.value = it
-                    viewModel.uploadProfileImage(it)  // Fotoğrafı Firebase Storage'a yükleyin
+                    viewModel.uploadProfileImage(it)
                 }
             }
         }
@@ -117,11 +117,10 @@ class ProfileFragment : Fragment() {
 
 
 
-        viewModel.fetchComments() // Yorumları çekmek için çağırın
-
+        viewModel.fetchComments()
         viewModel.commentsList.observe(viewLifecycleOwner) { comments ->
             comments?.let {
-                // RecyclerView adapter'ınıza yorum listesini geçin
+
                 commentsAdapter.submitList(it)
             }
         }

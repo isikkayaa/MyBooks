@@ -47,19 +47,18 @@ class HomePageAdapter(
         t.kitapNesnesi = kitap
 
 
-        // Favori durumunu kontrol etme
+
         val isFavourited = favKitaplar.any { it.title == kitap.title }
 
-        // Eğer favoriyse kalbi dolu göster, değilse boş kalp göster
+
         if (isFavourited) {
-            t.imageViewkalpborder.setImageResource(R.drawable.baseline_favorite_24) // Dolu kalp
+            t.imageViewkalpborder.setImageResource(R.drawable.baseline_favorite_24)
         } else {
-            t.imageViewkalpborder.setImageResource(R.drawable.baseline_favorite_border_24) // Boş kalp
+            t.imageViewkalpborder.setImageResource(R.drawable.baseline_favorite_border_24)
         }
 
         holder.tasarim.imageView5.setOnClickListener {
-            // SharedPreferences()
-            //readBooks(okunanKitaplarListesi)
+
 
             viewModel.addBookToReadList(kitap) { success ->
                 if (success) {
@@ -131,10 +130,8 @@ class HomePageAdapter(
             }
         }
 
-        //val url = "http://www.googleapis.com/books/v1/}"
-        //Glide.with(mContext).load(url).override(500,750).into(t.imageViewKitapGorsel)
 
-        // Kitap favori durumunu değiştiren buton işlevi
+
         t.imageViewkalpborder.setOnClickListener {
             if (isFavourited) {
                 viewModel.removeFromFavorites(kitap.title) { success ->

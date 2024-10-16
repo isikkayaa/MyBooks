@@ -17,22 +17,7 @@ class FavouritesViewModel @Inject constructor(var brepo:BooksRepository,  @Appli
 ) : ViewModel() {
     var favKitaplarListesi = MutableLiveData<List<FavBooks>?>()
 
-    init {
-    //    favKitaplariYukle()
-    }
-
-    /*fun favKitaplariYukle() {
-        viewModelScope.launch {
-            try {
-                val favBooksList = brepo.favKitaplariYukle() // Repository'den veriyi çekiyoruz
-                favKitaplarListesi.value = favBooksList // LiveData'yı güncelliyoruz
-            } catch (e: Exception) {
-                Log.e("FavouritesViewModel", "Favori kitaplar yüklenirken hata oluştu: $e")
-            }
-        }
-    }
 
 
-     */
 
 }

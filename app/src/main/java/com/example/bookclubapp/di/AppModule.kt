@@ -65,7 +65,7 @@ object AppModule {
     @Singleton
     fun provideNyTimesApi(): NyTimesApi {
         return Retrofit.Builder()
-            .baseUrl("https://api.nytimes.com/svc/books/v3/lists/current/")  // Doğru base URL
+            .baseUrl("https://api.nytimes.com/svc/books/v3/lists/current/")
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(NyTimesApi::class.java)

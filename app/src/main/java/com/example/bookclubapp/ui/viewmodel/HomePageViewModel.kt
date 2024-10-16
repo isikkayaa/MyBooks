@@ -86,11 +86,9 @@ class HomePageViewModel @Inject constructor(
                 _readBooks.value = readBooks
                 _favoriteBooks.value = favoriteBooks
                 delay(2000) // 2 saniye bekleme
-
             } catch (e: HttpException) {
                 if (e.code() == 429) {
                     Log.e("HomePage", "Too many requests, please try again later.")
-                    // Kullanıcıya bir mesaj göster veya istekleri duraklat
                 } else {
                     Log.e("HomePage", "Error loading books", e)
                 }
@@ -243,7 +241,6 @@ class HomePageViewModel @Inject constructor(
                 _okunanBooks.postValue(okunanbooks)
                 Log.d("HomePageViewModel", "Okunan kitaplar: $okunanbooks")  // LOG EKLEYİN
 
-                // Okunan kitap sayısını hesaplayıp güncelliyoruz
                 _okunanBooksCount.postValue(okunanbooks.size)
             }
             .addOnFailureListener { e ->

@@ -93,8 +93,6 @@ class BookDetailFragment : Fragment() {
                         .show()
                     viewModel.fetchokunanBooks()
 
-                   // readBooks(okunanKitaplarListesi)
-
                 }
             }
 
@@ -136,7 +134,6 @@ class BookDetailFragment : Fragment() {
                         Snackbar.LENGTH_SHORT
                     ).show()
 
-                   // readingBooks(okunacakKitaplarListesi)
 
 
                 }

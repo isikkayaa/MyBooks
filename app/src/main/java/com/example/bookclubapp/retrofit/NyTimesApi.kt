@@ -8,7 +8,6 @@ import retrofit2.http.Query
 interface NyTimesApi {
 
 
-    // NYTimes API'den bestseller kitapları çeker, dönüş tipi BooksResponse
     @GET("hardcover-fiction.json")
     suspend fun getBestsellerBooks(
         @Query("api-key") apiKey: String,

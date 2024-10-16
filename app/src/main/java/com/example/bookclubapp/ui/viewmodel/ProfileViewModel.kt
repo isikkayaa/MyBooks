@@ -62,7 +62,7 @@ class ProfileViewModel  @Inject constructor(@ApplicationContext private val cont
     }
 
 
-    // Fotoğrafı Firebase Storage'a yükleyin ve Firestore'a URL'yi kaydedin
+
     fun uploadProfileImage(uri: Uri) {
         val userId = firebaseAuth.currentUser?.uid ?: return
         val storageRef = firebaseStorage.reference.child("profile_images/$userId.jpg")

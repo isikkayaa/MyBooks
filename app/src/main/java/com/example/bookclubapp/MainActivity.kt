@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val toolbar = binding.toolbar
-        setSupportActionBar(toolbar)  // Toolbar'ı ayarla
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayShowTitleEnabled(false)
 
 
@@ -50,7 +50,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-        // Handle back button press for drawer
 
     }
 
@@ -58,7 +57,7 @@ class MainActivity : AppCompatActivity() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
-            super.onBackPressed()  // Eğer çekmece açık değilse, varsayılan geri basma işlemini uygula
+            super.onBackPressed()
         }
     }
 
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
             this,
             drawerLayout,
             binding.toolbar,
-            R.string.open_drawer,  // Bu stringler strings.xml'de tanımlı olmalı
+            R.string.open_drawer,
             R.string.close_drawer
         )
 
@@ -115,7 +114,7 @@ class MainActivity : AppCompatActivity() {
                 supportActionBar?.setDisplayHomeAsUpEnabled(true)
                 actionBarDrawerToggle.isDrawerIndicatorEnabled = true
                 drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-                actionBarDrawerToggle.syncState()  // Burası önemli, toggle'ı güncelleyerek yeni duruma senkronize et.
+                actionBarDrawerToggle.syncState()
             } else {
                 supportActionBar?.setDisplayHomeAsUpEnabled(false)
                 actionBarDrawerToggle.isDrawerIndicatorEnabled = false
@@ -124,12 +123,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        actionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.baseline_menu_24) // Özel simgeyi ayarla
+        actionBarDrawerToggle.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
 
 
         navigationView.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
-            drawerLayout.closeDrawers()  // Menüden bir şey seçildikten sonra menüyü kapat
+            drawerLayout.closeDrawers()
             when (menuItem.itemId) {
                 R.id.readFragment -> navController.navigate(R.id.readFragment)
                 R.id.readingListFragment -> navController.navigate(R.id.readingListFragment)
@@ -140,8 +139,6 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-
-        // ActionBar'daki toggle simgesinin tıklanmasını yönet
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             true
@@ -161,15 +158,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun logout() {
-        // Firebase'den çıkış işlemi
         FirebaseAuth.getInstance().signOut()
-        // Kullanıcı oturumunu temizle ve giriş sayfasına yönlendir
+
         navController.navigate(R.id.loginFragment)
     }
 
-    // Drawer toggle senkronizasyonu
     override fun onStart() {
         super.onStart()
-        actionBarDrawerToggle.syncState()  // Toggle güncellemesi
+        actionBarDrawerToggle.syncState()
     }
 }

@@ -63,9 +63,8 @@ class ReadFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Okunan kitapların sayısını gözlemle
         viewModel.okunanBooksCount.observe(viewLifecycleOwner) { count ->
-            // Kitap sayısını textView6'ya göster
+
             binding.textView14.text = "$count Books"
         }
         viewModel.fetchokunanBooks()
@@ -77,12 +76,11 @@ class ReadFragment : Fragment() {
         viewModel.fetchokunanBooks()
     }
 
-    // Okunan kitapları göster
-    // Okunan kitapları göster
+
     private fun showReadBooks() {
         viewModel.okunanBooks.observe(viewLifecycleOwner, Observer { books ->
             if (books != null) {
-                adapter.updateBooks(books)  // Bu kısımda updateBooks fonksiyonunu çağır
+                adapter.updateBooks(books)
             } else {
                 Log.d("ReadFragment", "Okunan kitaplar listesi boş")
             }

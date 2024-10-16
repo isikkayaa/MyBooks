@@ -37,7 +37,7 @@ class CommentsAdapter(var mContext: Context,var yorumListesi : List<Comment>,var
         holder.tasarim.textView16.text = yorum.bookTitle
 
         holder.tasarim.textView17.text = yorum.userComment
-// Glide kullanarak kitap görselini yükleyin
+
         if (yorum.bookImageUrl != null) {
             Glide.with(mContext)
                 .load(yorum.bookImageUrl)
@@ -58,7 +58,7 @@ class CommentsAdapter(var mContext: Context,var yorumListesi : List<Comment>,var
 
 
 
-    // submitList methodunu buraya ekliyoruz.
+
     @SuppressLint("NotifyDataSetChanged")
     fun submitList(newComments: List<Comment>?) {
         yorumListesi = newComments ?: emptyList()

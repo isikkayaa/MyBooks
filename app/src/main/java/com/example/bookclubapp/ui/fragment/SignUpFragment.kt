@@ -41,7 +41,7 @@ class SignUpFragment : Fragment() {
                         val userId = firebaseAuth.currentUser?.uid
 
                         if (userId != null) {
-                            // Kullanıcı Firestore'a kaydediliyor
+
                             val userMap = hashMapOf(
                                 "userId" to userId,
                                 "username" to username,
@@ -50,7 +50,6 @@ class SignUpFragment : Fragment() {
                             FirebaseFirestore.getInstance().collection("users").document(userId)
                                 .set(userMap).addOnCompleteListener { task ->
                                     if (task.isSuccessful) {
-                                        // Başarılı kayıt, giriş ekranına yönlendirme
                                         Navigation.findNavController(a).navigate(R.id.signtologinGecis)
                                     } else {
                                         Toast.makeText(requireContext(), "Error saving user data", Toast.LENGTH_SHORT).show()
