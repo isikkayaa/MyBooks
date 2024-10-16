@@ -7,7 +7,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.example.bookclubapp.ui.viewmodel.FavouritesViewModel" />
+            type="com.example.bookclubapp.ui.viewmodel.HomePageViewModel" />
         <variable
             name="adapter"
             type="com.example.bookclubapp.ui.adapter.FavouritesAdapter" />
@@ -24,12 +24,29 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvFav"
-            android:layout_width="408dp"
-            android:layout_height="675dp"
-            android:layout_marginTop="55dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="36dp"
+            android:orientation="vertical"
+            android:padding="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/textView18"
+            app:layout_marginBaseline="10dp"
+            tools:listitem="@layout/card_fav_tasarim" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="176dp"
+            android:layout_marginTop="68dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

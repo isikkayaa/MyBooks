@@ -105,7 +105,7 @@ class LoginFragment : Fragment() {
     private fun observeLoginResult() {
         usersViewModel.loginResult.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Navigation.findNavController(requireView()).navigate(R.id.loginhomeGecis)
+                Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_homePageFragment)
             } else {
                 Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
             }

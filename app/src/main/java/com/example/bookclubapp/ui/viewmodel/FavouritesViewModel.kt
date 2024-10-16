@@ -1,15 +1,14 @@
 package com.example.bookclubapp.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bookclubapp.data.entity.FavBookItem
+import androidx.lifecycle.viewModelScope
 import com.example.bookclubapp.data.entity.FavBooks
 import com.example.bookclubapp.data.repository.BooksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,19 +18,21 @@ class FavouritesViewModel @Inject constructor(var brepo:BooksRepository,  @Appli
     var favKitaplarListesi = MutableLiveData<List<FavBooks>?>()
 
     init {
-        favKitaplariYukle()
+    //    favKitaplariYukle()
     }
 
-    fun favKitaplariYukle() {
-        CoroutineScope(Dispatchers.Main).launch {
+    /*fun favKitaplariYukle() {
+        viewModelScope.launch {
             try {
-                val favBooksList = brepo.favKitaplariYukle()
-                favKitaplarListesi.value = favBooksList
+                val favBooksList = brepo.favKitaplariYukle() // Repository'den veriyi çekiyoruz
+                favKitaplarListesi.value = favBooksList // LiveData'yı güncelliyoruz
             } catch (e: Exception) {
+                Log.e("FavouritesViewModel", "Favori kitaplar yüklenirken hata oluştu: $e")
             }
         }
     }
 
 
+     */
 
 }

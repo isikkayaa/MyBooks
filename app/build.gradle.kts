@@ -90,8 +90,12 @@ dependencies {
     implementation("com.google.firebase:firebase-auth:23.0.0")
     implementation("com.google.android.gms:play-services-auth:21.2.0")
     implementation ("com.firebaseui:firebase-ui-auth:7.2.0")
+    implementation ("com.google.firebase:firebase-storage:20.1.0")
+
 
     implementation ("at.favre.lib:bcrypt:0.9.0")
+
+
 
 
 

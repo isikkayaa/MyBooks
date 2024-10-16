@@ -13,6 +13,7 @@ import com.example.bookclubapp.ui.viewmodel.UsersViewModel
 import com.example.bookclubapp.R
 import com.example.bookclubapp.databinding.FragmentSignUpBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -30,26 +31,32 @@ class SignUpFragment : Fragment() {
 
         binding.buttonSignIn.setOnClickListener { a ->
 
-            val userName = binding.usernameSignUp.text.toString()
+            val username = binding.usernameSignUp.text.toString()
             val email = binding.emailSignUp.text.toString()
             val pass = binding.passSignUp.text.toString()
 
-            if (userName.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty()) {
+            if (username.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty()) {
                 firebaseAuth.createUserWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if (it.isSuccessful) {
                         val userId = firebaseAuth.currentUser?.uid
 
                         if (userId != null) {
                             // Kullanıcı Firestore'a kaydediliyor
-                            usersViewModel.registerUser(userId, userName, email) { success ->
-                                if (success) {
-                                    Navigation.findNavController(a).navigate(R.id.signtologinGecis)
-                                } else {
-                                    Toast.makeText(requireContext(), "Error saving user data", Toast.LENGTH_SHORT).show()
+                            val userMap = hashMapOf(
+                                "userId" to userId,
+                                "username" to username,
+                                "email" to email
+                            )
+                            FirebaseFirestore.getInstance().collection("users").document(userId)
+                                .set(userMap).addOnCompleteListener { task ->
+                                    if (task.isSuccessful) {
+                                        // Başarılı kayıt, giriş ekranına yönlendirme
+                                        Navigation.findNavController(a).navigate(R.id.signtologinGecis)
+                                    } else {
+                                        Toast.makeText(requireContext(), "Error saving user data", Toast.LENGTH_SHORT).show()
+                                    }
                                 }
-                            }
                         }
-
                     } else {
                         Toast.makeText(requireContext(), it.exception.toString(), Toast.LENGTH_SHORT).show()
                     }
