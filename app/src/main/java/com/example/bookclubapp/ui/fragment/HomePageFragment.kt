@@ -6,16 +6,19 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 
 import androidx.databinding.BindingAdapter
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.bumptech.glide.Glide
 import com.example.bookclubapp.retrofit.BooksDao
 import com.example.bookclubapp.ui.adapter.HomePageAdapter
 import com.example.bookclubapp.ui.viewmodel.HomePageViewModel
@@ -46,7 +49,10 @@ class HomePageFragment : Fragment() {
     ): View? {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home_page, container, false)
 
-        homePageAdapter = HomePageAdapter(requireContext(), emptyList(), emptyList(), homePageViewModel)
+        homePageAdapter = HomePageAdapter(
+            requireContext(), emptyList(), emptyList(),
+            emptyList(), emptyList(), homePageViewModel
+        )
 
         binding.homePageFragment = this
         binding.viewModel = homePageViewModel
@@ -59,19 +65,7 @@ class HomePageFragment : Fragment() {
 
         observeViewModel()
 
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                query?.let {
-                    homePageViewModel.searchBooks(it, "AIzaSyCfkKjXimNQjMHWWWInqTqHwZWc8MLavN4")
-                    Log.d("HomePageFragment", "Arama yapılıyor: $query")
-                }
-                return true
-            }
 
-            override fun onQueryTextChange(newText: String?): Boolean {
-                return false
-            }
-        })
 
         return binding.root
     }
@@ -87,18 +81,38 @@ class HomePageFragment : Fragment() {
     }
 
     private fun setupRecyclerView() {
-        homePageAdapter = HomePageAdapter(requireContext(), emptyList(), emptyList(), homePageViewModel)
-        binding.rv.apply {
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        homePageAdapter = HomePageAdapter(
+            requireContext(), emptyList(), emptyList(),
+            emptyList(), emptyList(), homePageViewModel
+        )
+        binding.rvBestsellers.apply {
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             adapter = homePageAdapter
         }
+        binding.rvReadBooks.apply {
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+            adapter = homePageAdapter
+
+        }
+
+        binding.rvFavbooks.apply {
+            layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
+            adapter = homePageAdapter
+        }
+
+
     }
 
-    fun ara(aramaKelimesi: String) {
-    }
 
     private fun observeViewModel() {
-        homePageViewModel.kitaplarListesi.observe(viewLifecycleOwner) { kitaplarListesi ->
+        homePageViewModel.bestsellerBooks.observe(viewLifecycleOwner, Observer { books ->
+            if (books != null) {
+                // Adapter'a kitapları yükleyin
+                homePageAdapter.updateBooks(books)
+            }
+        })
+
+        /*homePageViewModel.kitaplarListesi.observe(viewLifecycleOwner) { kitaplarListesi ->
             kitaplarListesi?.let {
                 if (it.isNotEmpty()) {
                     homePageAdapter.updateBooks(it)
@@ -109,6 +123,8 @@ class HomePageFragment : Fragment() {
                 Log.d("HomePageFragment", "Kitaplar listesi null")
             }
         }
+
+         */
     }
 
     companion object {
@@ -123,6 +139,22 @@ class HomePageFragment : Fragment() {
         fun bindDescription(textView: TextView, description: String?) {
             textView.text = description ?: "Description not available"
         }
+
+
+        @JvmStatic
+        @BindingAdapter("imageUrl")
+        fun loadImage(view: ImageView, imageUrl: String?) {
+            if (!imageUrl.isNullOrEmpty()) {
+                Glide.with(view.context)
+                    .load(imageUrl)
+                    .placeholder(R.drawable.baseline_menu_book_24) // Varsayılan görsel
+                    .error(R.drawable.baseline_list_24) // Hata durumunda gösterilecek görsel
+                    .into(view)
+            } else {
+                view.setImageResource(R.drawable.baseline_menu_book_24) // Eğer resim yoksa varsayılan görseli göster
+            }
+        }
+
     }
 }
 

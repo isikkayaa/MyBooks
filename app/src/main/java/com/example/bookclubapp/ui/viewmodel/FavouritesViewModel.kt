@@ -1,15 +1,14 @@
 package com.example.bookclubapp.ui.viewmodel
 
 import android.content.Context
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.example.bookclubapp.data.entity.FavBookItem
+import androidx.lifecycle.viewModelScope
 import com.example.bookclubapp.data.entity.FavBooks
 import com.example.bookclubapp.data.repository.BooksRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,19 +17,6 @@ class FavouritesViewModel @Inject constructor(var brepo:BooksRepository,  @Appli
 ) : ViewModel() {
     var favKitaplarListesi = MutableLiveData<List<FavBooks>?>()
 
-    init {
-        favKitaplariYukle()
-    }
-
-    fun favKitaplariYukle() {
-        CoroutineScope(Dispatchers.Main).launch {
-            try {
-                val favBooksList = brepo.favKitaplariYukle()
-                favKitaplarListesi.value = favBooksList
-            } catch (e: Exception) {
-            }
-        }
-    }
 
 
 

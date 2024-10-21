@@ -3,9 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-android:id="@+id/homePageFragment3"
+android:id="@+id/homePageFragment"
         android:icon="@drawable/baseline_home_24"
         android:title="Anasayfa" />
+    <item
+        android:id="@+id/searchFragment"
+        android:icon="@drawable/baseline_search_24"
+        android:title="Search"/>
 
     <item
         android:id="@+id/favouritesFragment"
@@ -14,7 +18,7 @@ android:id="@+id/homePageFragment3"
         />
 
     <item android:title="Profil"
-        android:id="@+id/profileFragment2"
+        android:id="@+id/profileFragment"
         android:icon="@drawable/baseline_person_24"
         />
 </menu>

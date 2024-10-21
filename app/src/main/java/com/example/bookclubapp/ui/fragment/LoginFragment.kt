@@ -37,19 +37,17 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
 
-        // Google Sign-In Options
+
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
             .requestEmail()
             .build()
         googleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
 
-        // Google Sign-In Button
         binding.imageButton.setOnClickListener {
             signInGoogle()
         }
 
-        // E-posta ile giriş işlemi
         binding.buttonLogin.setOnClickListener { a ->
             val email = binding.emailLogin.text.toString()
             val pass = binding.emailPassword.text.toString()
@@ -61,7 +59,7 @@ class LoginFragment : Fragment() {
             }
         }
 
-        // Giriş durumunu gözlemleme
+
         observeLoginResult()
 
 
@@ -73,7 +71,7 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    // Google ile oturum açma
+
     private fun signInGoogle() {
         googleSignInClient.signOut().addOnCompleteListener {
             val signInIntent = googleSignInClient.signInIntent
@@ -101,11 +99,11 @@ class LoginFragment : Fragment() {
         }
     }
 
-    // Giriş sonucu gözlemlenir
+
     private fun observeLoginResult() {
         usersViewModel.loginResult.observe(viewLifecycleOwner) { success ->
             if (success) {
-                Navigation.findNavController(requireView()).navigate(R.id.loginhomeGecis)
+                Navigation.findNavController(requireView()).navigate(R.id.action_loginFragment_to_homePageFragment)
             } else {
                 Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
             }

@@ -13,6 +13,13 @@
         <variable
             name="gorselNesnesi"
             type="com.example.bookclubapp.data.entity.ImageLinks" />
+        <variable
+            name="viewModel"
+            type="com.example.bookclubapp.ui.viewmodel.HomePageViewModel" />
+        <variable
+            name="profilViewModel"
+            type="com.example.bookclubapp.ui.viewmodel.ProfileViewModel" />
+
 
     </data>
 
@@ -31,15 +38,33 @@
             app:layout_constraintEnd_toStartOf="@+id/imageView4"
             app:layout_constraintTop_toBottomOf="@+id/imageViewKitapDetayresim" />
 
+
         <ImageView
             android:id="@+id/imageViewKitapDetayresim"
-            android:layout_width="169dp"
-            android:layout_height="216dp"
-            android:layout_marginTop="52dp"
+            android:layout_width="166dp"
+            android:layout_height="156dp"
+            android:layout_marginTop="92dp"
             android:src="@{gorselNesnesi.thumbnail}"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.489"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="245dp"
+            android:layout_height="53dp"
+            android:layout_marginTop="8dp"
+            android:numStars="5"
+            android:progressBackgroundTint="@color/black"
+            android:progressTint="@color/orange"
+            android:rating="4"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:stepSize="1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewKitapDetayresim" />
 
         <TextView
             android:id="@+id/textViewKitapdetayisim"
@@ -57,11 +82,10 @@
             android:id="@+id/textViewkitapdetayyazaradi"
             android:layout_width="322dp"
             android:layout_height="35dp"
-            android:layout_marginStart="48dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="24dp"
             app:bindAuthors="@{kitapNesnesi.authors}"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewKitapdetayisim" />
 
@@ -70,7 +94,7 @@
             android:layout_width="340dp"
             android:layout_height="64dp"
             android:layout_marginStart="44dp"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="16dp"
             app:bindDescription="@{kitapNesnesi.description}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewkitapdetayyazaradi" />

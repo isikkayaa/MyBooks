@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class FavouritesFragment : Fragment() {
-    private lateinit var favouritesViewModel: FavouritesViewModel
+  //  private lateinit var favouritesViewModel: FavouritesViewModel
     private lateinit var favouritesAdapter: FavouritesAdapter
     private lateinit var booksDao: BooksDao
     private lateinit var homePageViewModel: HomePageViewModel
@@ -34,8 +34,8 @@ class FavouritesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val tempViewModel: FavouritesViewModel by viewModels()
-        favouritesViewModel = tempViewModel
+        val tempViewModel: HomePageViewModel by viewModels()
+        homePageViewModel = tempViewModel
         firebaseAuth = FirebaseAuth.getInstance()
 
 
@@ -44,13 +44,13 @@ class FavouritesFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentFavouritesBinding.inflate(inflater,container,false)
         binding.fragment = this
-        binding.viewModel= favouritesViewModel
+        binding.viewModel= homePageViewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
         homePageViewModel = ViewModelProvider(this).get(HomePageViewModel::class.java)
 
-        favouritesViewModel = ViewModelProvider(this).get(FavouritesViewModel::class.java)
-        favouritesAdapter = FavouritesAdapter(requireContext(),emptyList(),favouritesViewModel)
+       // homePageViewModel = ViewModelProvider(this).get(FavouritesViewModel::class.java)
+        favouritesAdapter = FavouritesAdapter(requireContext(),emptyList(),homePageViewModel)
 
         binding.rvFav.adapter = favouritesAdapter
         setupRecyclerView()
@@ -58,9 +58,10 @@ class FavouritesFragment : Fragment() {
         observeViewModel()
 
 
-        favouritesViewModel.favKitaplarListesi.observe(viewLifecycleOwner) { it ->
+        homePageViewModel.favBooks.observe(viewLifecycleOwner) { it ->
             if (it != null) {
                 favouritesAdapter.updateFavorites(it)
+                homePageViewModel.fetchFavoriteBooks()
             }
         }
 
@@ -74,17 +75,17 @@ class FavouritesFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        favouritesViewModel.favKitaplariYukle()
+        homePageViewModel.fetchFavoriteBooks()
     }
 
     override fun onResume() {
         super.onResume()
-        favouritesViewModel.favKitaplariYukle()
+        homePageViewModel.fetchFavoriteBooks()
     }
 
 
     private fun setupRecyclerView() {
-        favouritesAdapter = FavouritesAdapter(requireContext(), emptyList(), favouritesViewModel)
+        favouritesAdapter = FavouritesAdapter(requireContext(), emptyList(), homePageViewModel)
         binding.rvFav.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = favouritesAdapter
@@ -92,23 +93,15 @@ class FavouritesFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        favouritesViewModel.favKitaplarListesi.observe(viewLifecycleOwner) {it ->
-            it?.let {
-                if (it.isNotEmpty()) {
-                    favouritesAdapter.updateFavorites(it)
-                }else {
-                    Log.d("FavouritesFragment","listebos")
-                } ?: run {
-                    Log.d("Fav", "Kitaplar listesi null")
-                }
+        // Favori kitapları gözlemleme
+        homePageViewModel.favBooks.observe(viewLifecycleOwner) { favBooks ->
+            if (favBooks != null && favBooks.isNotEmpty()) {
+                favouritesAdapter.updateFavorites(favBooks)  // Adapter'a yeni veriyi gönder
+            } else {
+                Log.d("FavouritesFragment", "Favori kitap listesi boş")
             }
-
         }
     }
-
-
-
-
 
 
 
