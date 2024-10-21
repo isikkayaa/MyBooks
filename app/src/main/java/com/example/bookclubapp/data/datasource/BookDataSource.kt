@@ -2,6 +2,7 @@ package com.example.bookclubapp.data.datasource
 
 import android.util.Log
 import com.example.bookclubapp.data.entity.BookItem
+import com.example.bookclubapp.data.entity.BooksResponse
 import com.example.bookclubapp.data.entity.ImageLinks
 import com.example.bookclubapp.data.entity.NyTimesBook
 import com.example.bookclubapp.data.entity.NyTimesBookResult
@@ -58,7 +59,7 @@ class BookDataSource(private val bdao: BooksDao,
 
 
 
-
+/*
 
     suspend fun getReadBooks(): List<VolumeInfo> =
         withContext(Dispatchers.IO) {
@@ -71,10 +72,13 @@ class BookDataSource(private val bdao: BooksDao,
             return@withContext bdao.getFavoriteBooks().items?.map { it.volumeInfo } ?: emptyList()
         }
 
+ */
+
 
     suspend fun searchBooks(query: String): List<VolumeInfo> =
         withContext(Dispatchers.IO) {
-            return@withContext googleBooksApi.searchBooks(query, Constants.GOOGLE_BOOKS_BASE_URL).items?.map { it.volumeInfo } ?: emptyList()
+            return@withContext googleBooksApi.searchBooks(query, Constants.GOOGLEBOOKS_API_KEY).items?.map { it.volumeInfo } ?: emptyList()
         }
 }
+
 

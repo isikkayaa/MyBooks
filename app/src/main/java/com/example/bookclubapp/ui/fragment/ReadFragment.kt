@@ -44,7 +44,7 @@ class ReadFragment : Fragment() {
         binding.lifecycleOwner = this
 
 
-        adapter = BooksAdapter(requireContext(), emptyList(), emptyList(), emptyList())
+        adapter = BooksAdapter(requireContext(), emptyList(), emptyList(), emptyList(),"ReadFragment")
         binding.rvreadbooks.layoutManager = StaggeredGridLayoutManager(2,
             StaggeredGridLayoutManager.VERTICAL)
         binding.rvreadbooks.adapter = adapter

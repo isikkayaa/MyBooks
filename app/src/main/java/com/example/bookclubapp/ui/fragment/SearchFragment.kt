@@ -16,6 +16,7 @@ import com.example.bookclubapp.R
 import com.example.bookclubapp.databinding.FragmentSearchBinding
 import com.example.bookclubapp.ui.adapter.HomePageAdapter
 import com.example.bookclubapp.ui.viewmodel.HomePageViewModel
+import com.example.bookclubapp.util.Constants
 import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -54,7 +55,7 @@ class SearchFragment : Fragment() {
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 if (!query.isNullOrEmpty()) {
-                    homePageViewModel.searchBooks(query, "AIzaSyCfkKjXimNQjMHWWWInqTqHwZWc8MLavN4")
+                    homePageViewModel.searchBooks(query, Constants.GOOGLEBOOKS_API_KEY)
                     Log.d("HomePageFragment", "Arama yapılıyor: $query")
                 }
                 return true

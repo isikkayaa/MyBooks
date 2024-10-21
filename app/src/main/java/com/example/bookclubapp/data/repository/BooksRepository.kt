@@ -4,7 +4,7 @@ import com.example.bookclubapp.data.datasource.BookDataSource
 import com.example.bookclubapp.data.entity.FavBooks
 import com.example.bookclubapp.data.entity.VolumeInfo
 
-class BooksRepository(private val bds: BookDataSource)  {
+class BooksRepository(private val bds: BookDataSource) {
 
     suspend fun homepageKitapYukle(): List<VolumeInfo> = bds.homepageKitapYukle()
 
@@ -12,9 +12,11 @@ class BooksRepository(private val bds: BookDataSource)  {
     suspend fun getBestsellerBooks(): List<VolumeInfo> = bds.getBestsellerBooks()
 
 
-    suspend fun getReadBooks(): List<VolumeInfo> = bds.getReadBooks()
+    /*   suspend fun getReadBooks(): List<VolumeInfo> = bds.getReadBooks()
 
     suspend fun getFavoriteBooks(): List<VolumeInfo> = bds.getFavoriteBooks()
+
+  */
 
     suspend fun searchBooks(query: String): List<VolumeInfo> = bds.searchBooks(query)
 }

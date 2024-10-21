@@ -15,12 +15,18 @@ interface BooksDao {
         @Query("api-key") apiKey: String,
         @Query("list") listName: String = "hardcover-fiction"
     ): BooksResponse
-    @GET("books/v1/volumes?q=read")
+   /* @GET("books/v1/volumes?q=read")
     suspend fun getReadBooks(): BooksResponse
 
     @GET("books/v1/volumes?q=favorites")
     suspend fun getFavoriteBooks(): BooksResponse
-    @GET("books/v1")
-    suspend fun searchBooks(query:String, apiKey:String) : BookItem
+
+    */
+
+
+
 }
+
+
+
 

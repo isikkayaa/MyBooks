@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.bookclubapp.data.entity.Comment
+import com.example.bookclubapp.data.entity.CurrentlyBookList
 import com.example.bookclubapp.data.entity.VolumeInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -29,6 +30,10 @@ class ProfileViewModel  @Inject constructor(@ApplicationContext private val cont
 
     private val _commentsList = MutableLiveData<List<Comment>?>()
     val commentsList: LiveData<List<Comment>?> get() = _commentsList
+
+
+    private val _currentlyList = MutableLiveData<List<CurrentlyBookList>?>()
+    val currentlyList : LiveData<List<CurrentlyBookList>?> get() = _currentlyList
 
     private val firestore = FirebaseFirestore.getInstance()
 
@@ -142,4 +147,56 @@ class ProfileViewModel  @Inject constructor(@ApplicationContext private val cont
 
 
     }
+
+
+    fun addBookCurrentlyList(book: VolumeInfo,onComplete: (Boolean) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        val currentlyBook = hashMapOf(
+            "title" to book.title,
+            "authors" to book.authors,
+            "thumbnail" to book.imageLinks?.thumbnail
+        )
+
+
+        db.collection("users").document(userId).collection("currentlyList")
+            .document(book.title)
+            .set(currentlyBook)
+            .addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error adding book to currentlylist",e)
+                onComplete(false)
+            }
+    }
+
+
+
+    fun fetchCurrentlyList() {
+        val userId = firebaseAuth.currentUser?.uid ?: return
+
+        firestore.collection("users").document(userId).collection("currentlyList")
+            .addSnapshotListener { snapshots, e ->
+                if (e != null) {
+                    Log.w("ProfileViewModel", "Error fetching currentlyList", e)
+                    return@addSnapshotListener
+                }
+
+                val currentlyList = snapshots?.documents?.map { doc ->
+                    CurrentlyBookList(
+                        bookTitle = doc.getString("title") ?: "",
+                        bookAuthors = doc.get("authors") as? List<String>,
+                        bookImageUrl = doc.getString("thumbnail")
+                    )
+                } ?: emptyList()
+
+                _currentlyList.value = currentlyList
+            }
+    }
+
+
+
+
+
+
 }

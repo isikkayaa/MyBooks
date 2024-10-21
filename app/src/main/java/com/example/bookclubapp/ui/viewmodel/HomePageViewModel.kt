@@ -78,13 +78,15 @@ class HomePageViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 val bestsellerBooks = brepo.getBestsellerBooks()
-                val readBooks = brepo.getReadBooks()
+              /*  val readBooks = brepo.getReadBooks()
                 val favoriteBooks = brepo.getFavoriteBooks()
+
+               */
 
                 _bestsellerBooks.value = bestsellerBooks
                // _bestsellerBooks.postValue(bestsellerBooks)
-                _readBooks.value = readBooks
-                _favoriteBooks.value = favoriteBooks
+               // _readBooks.value = readBooks
+                //_favoriteBooks.value = favoriteBooks
                 delay(2000) // 2 saniye bekleme
             } catch (e: HttpException) {
                 if (e.code() == 429) {
@@ -101,18 +103,12 @@ class HomePageViewModel @Inject constructor(
     fun searchBooks(query: String, apiKey: String) {
         viewModelScope.launch {
             try {
-
-                val response = googleBooksApi.searchBooks(query, apiKey)
-
-
-                Log.d("HomePageViewModel", "API Yanıtı: $response")
-
-
-                val books = response.items?.mapNotNull { bookItem ->
-                    bookItem.volumeInfo?.let {
+                val response = brepo.searchBooks(query)
+                val books = response.mapNotNull { volumeItem ->
+                    volumeItem.let {
                         VolumeInfo(
                             title = it.title ?: "Bilinmeyen Başlık",
-                            authors = it.authors ?: emptyList(),
+                            authors = it.authors ?: emptyList(),  // Null ise boş liste
                             description = it.description ?: "Açıklama yok",
                             imageLinks = it.imageLinks
                         )
@@ -120,7 +116,6 @@ class HomePageViewModel @Inject constructor(
                 }
 
                 _kitaplarListesi.postValue(books ?: emptyList())
-
                 Log.d("HomePageViewModel", "Kitap listesi post edildi: ${books?.size} kitap")
 
             } catch (e: Exception) {
@@ -128,6 +123,7 @@ class HomePageViewModel @Inject constructor(
             }
         }
     }
+
 
 
 
@@ -293,6 +289,25 @@ class HomePageViewModel @Inject constructor(
                 onComplete(false)
             }
     }
+
+
+    fun removeFromCurrentlyList(title: String, onComplete: (Boolean) -> Unit) {
+        val db = FirebaseFirestore.getInstance()
+        val userId = FirebaseAuth.getInstance().currentUser?.uid ?: return
+
+        db.collection("users").document(userId).collection("currentlyList")
+            .document(title)
+            .delete()
+            .addOnSuccessListener { onComplete(true) }
+            .addOnFailureListener { e ->
+                Log.w("Firestore", "Error removing book from favorites", e)
+                onComplete(false)
+            }
+    }
+
+
+
+
 
 
 

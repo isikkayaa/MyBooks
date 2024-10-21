@@ -16,10 +16,11 @@ import com.example.bookclubapp.databinding.CardTasarimBinding
 import com.example.bookclubapp.ui.fragment.HomePageFragmentDirections
 import com.example.bookclubapp.ui.fragment.ProfileFragmentDirections
 import com.example.bookclubapp.ui.fragment.ReadFragmentDirections
+import com.example.bookclubapp.ui.fragment.ReadingListFragmentDirections
 import com.example.bookclubapp.util.gecisYap
 
 class BooksAdapter(var mContext: Context,var kitaplarListesi: List<VolumeInfo>,var okunanKitaplarListesi: List<VolumeInfo>,
-                   var okunacakKitaplarListesi: List<VolumeInfo>) : RecyclerView.Adapter<BooksAdapter.BooksTasarimTutucu>() {
+                   var okunacakKitaplarListesi: List<VolumeInfo>,var fragmentType: String) : RecyclerView.Adapter<BooksAdapter.BooksTasarimTutucu>() {
 
     inner class BooksTasarimTutucu(var tasarim : BooksTasarimBinding) : RecyclerView.ViewHolder(tasarim.root)
 
@@ -52,16 +53,32 @@ class BooksAdapter(var mContext: Context,var kitaplarListesi: List<VolumeInfo>,v
         }
 
 
+        // Fragment tipine göre geçiş
         t.cardViewBooks.setOnClickListener {
-            val gecis = kitap.imageLinks?.let { it1 ->
-                ReadFragmentDirections.actionReadFragmentToBookDetailFragment(
-                    kitap = kitap,
-                    gorsel = it1
-                )
-            }
-            if (gecis != null) {
-                Navigation.gecisYap(it, gecis)
+            when (fragmentType) {
+                "ReadFragment" -> {
+                    val gecis = kitap.imageLinks?.let { it1 ->
+                        ReadFragmentDirections.actionReadFragmentToBookDetailFragment(
+                            kitap = kitap,
+                            gorsel = it1
+                        )
+                    }
+                    if (gecis != null) {
+                        Navigation.gecisYap(it, gecis)
+                    }
+                }
 
+                "ReadingListFragment" -> {
+                    val geciss = kitap.imageLinks?.let { it2 ->
+                        ReadingListFragmentDirections.actionReadingListFragmentToBookDetailFragment(
+                            kitap = kitap,
+                            gorsel = it2
+                        )
+                    }
+                    if (geciss != null) {
+                        Navigation.gecisYap(it, geciss)
+                    }
+                }
             }
         }
 

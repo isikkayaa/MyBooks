@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
+import com.google.firebase.analytics.FirebaseAnalytics
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import dagger.hilt.android.AndroidEntryPoint
@@ -31,11 +32,25 @@ class LoginFragment : Fragment() {
     private val usersViewModel: UsersViewModel by viewModels()
 
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var firebaseAnalytics : FirebaseAnalytics
     private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         binding = FragmentLoginBinding.inflate(inflater, container, false)
         firebaseAuth = FirebaseAuth.getInstance()
+        firebaseAnalytics = FirebaseAnalytics.getInstance(requireContext())
+
+        val method = "email"
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.METHOD, method)
+        firebaseAnalytics.logEvent(FirebaseAnalytics.Event.SIGN_UP, bundle)
+
+
+
+
+
+
 
 
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

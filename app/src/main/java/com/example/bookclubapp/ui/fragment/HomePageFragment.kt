@@ -89,7 +89,7 @@ class HomePageFragment : Fragment() {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             adapter = homePageAdapter
         }
-        binding.rvReadBooks.apply {
+       /* binding.rvReadBooks.apply {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             adapter = homePageAdapter
 
@@ -99,6 +99,8 @@ class HomePageFragment : Fragment() {
             layoutManager = StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL)
             adapter = homePageAdapter
         }
+
+        */
 
 
     }

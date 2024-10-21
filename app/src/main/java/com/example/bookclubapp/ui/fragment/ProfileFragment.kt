@@ -13,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -30,6 +31,7 @@ import com.example.bookclubapp.R
 import com.example.bookclubapp.databinding.FragmentProfileBinding
 import com.example.bookclubapp.ui.adapter.BooksAdapter
 import com.example.bookclubapp.ui.adapter.CommentsAdapter
+import com.example.bookclubapp.ui.adapter.CurrentlyAdapter
 import com.example.bookclubapp.ui.adapter.HomePageAdapter
 import com.example.bookclubapp.ui.viewmodel.HomePageViewModel
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -43,6 +45,7 @@ class ProfileFragment : Fragment() {
     private lateinit var viewModel : ProfileViewModel
     private lateinit var adapter : BooksAdapter
     private lateinit var commentsAdapter: CommentsAdapter
+    private lateinit var currentlyAdapter: CurrentlyAdapter
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var imagePickerLauncher: ActivityResultLauncher<Intent>
     private lateinit var permissionLauncher: ActivityResultLauncher<String>
@@ -73,14 +76,18 @@ class ProfileFragment : Fragment() {
 
         binding.homePageViewModel = homePageViewModel
 
-        adapter = BooksAdapter(requireContext(), emptyList(), emptyList(), emptyList())
-        binding.recyclerViewCurrently.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL)
-        binding.recyclerViewCurrently.adapter = adapter
+
 
         commentsAdapter = CommentsAdapter(requireContext(), emptyList(), emptyList(), emptyList())
         binding.recyclerViewComments.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.VERTICAL)
         binding.recyclerViewComments.adapter = commentsAdapter
         firebaseAuth = FirebaseAuth.getInstance()
+
+
+
+        currentlyAdapter = CurrentlyAdapter(requireContext(), emptyList(),homePageViewModel)
+        binding.recyclerViewCurrently.layoutManager = StaggeredGridLayoutManager(1,StaggeredGridLayoutManager.HORIZONTAL)
+        binding.recyclerViewCurrently.adapter = currentlyAdapter
 
         viewModel.loadProfileData()
 
@@ -122,6 +129,13 @@ class ProfileFragment : Fragment() {
             comments?.let {
 
                 commentsAdapter.submitList(it)
+            }
+        }
+
+        viewModel.fetchCurrentlyList()
+        viewModel.currentlyList.observe(viewLifecycleOwner){currentBooks ->
+            currentBooks?.let {
+                currentlyAdapter.currentyListAdd(it)
             }
         }
 
@@ -194,6 +208,13 @@ class ProfileFragment : Fragment() {
                     .load(url)
                     .into(imageView)
             }
+        }
+
+
+        @JvmStatic
+        @BindingAdapter("bindAuthors")
+        fun bindAuthors(textView: TextView, authors: List<String>?) {
+            textView.text = authors?.joinToString(", ") ?: "Bilinmeyen Yazar"
         }
 
 

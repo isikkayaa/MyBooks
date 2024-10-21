@@ -35,6 +35,9 @@
         <argument
             android:name="gorsel"
             app:argType="com.example.bookclubapp.data.entity.ImageLinks" />
+        <action
+            android:id="@+id/action_bookDetailFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
     <fragment
         android:id="@+id/favouritesFragment"
@@ -67,7 +70,7 @@
         android:name="com.example.bookclubapp.ui.fragment.ReadingListFragment"
         android:label="ReadingListFragment" >
         <action
-            android:id="@+id/action_readingListFragment_to_bookDetailFragment"
+            android:id="@+id/actionReadingListFragmentToBookDetailFragment"
             app:destination="@id/bookDetailFragment" />
     </fragment>
     <fragment

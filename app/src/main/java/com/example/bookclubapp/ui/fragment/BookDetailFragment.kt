@@ -89,7 +89,7 @@ class BookDetailFragment : Fragment() {
         binding.imageView3.setOnClickListener {
             viewModel.addBookToReadList(gelenKitap) { success ->
                 if (success) {
-                    Snackbar.make(it, "${gelenKitap.title} Kitaplarım'a eklendi!", Snackbar.LENGTH_SHORT)
+                    Snackbar.make(it, "${gelenKitap.title} added to Read List!", Snackbar.LENGTH_SHORT)
                         .show()
                     viewModel.fetchokunanBooks()
 
@@ -130,9 +130,10 @@ class BookDetailFragment : Fragment() {
                 if (success) {
                     Snackbar.make(
                         it,
-                        "${gelenKitap.title} Okuyacaklarım'a eklendi!",
+                        "${gelenKitap.title} added to Reading List!",
                         Snackbar.LENGTH_SHORT
                     ).show()
+                    viewModel.fetchOkuyacakBooks()
 
 
 
@@ -142,6 +143,16 @@ class BookDetailFragment : Fragment() {
         }
 
 
+
+        binding.radioButton.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                profileViewModel.addBookCurrentlyList(gelenKitap) { success ->
+                    if (success) {
+                        Snackbar.make(binding.root, "${gelenKitap.title} added to Currently Reading!", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+            }
+        }
 
 
 
